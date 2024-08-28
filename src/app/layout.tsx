@@ -12,8 +12,8 @@ import "slick-carousel/slick/slick-theme.css";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cari Masjid",
-  description: "Website cari masjid",
+  title: "Social Lifestyle",
+  description: "Microsite for social lifestyle",
 };
 
 export default function RootLayout({
