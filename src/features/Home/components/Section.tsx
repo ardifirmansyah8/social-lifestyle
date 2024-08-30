@@ -32,11 +32,7 @@ export default function Section({ title, data, inverted = false }: Props) {
               height={40}
               alt={menu.title}
             />
-            <Link
-              href={menu.url}
-              target="_blank"
-              className="text-red-1 text-[8px] leading-3"
-            >
+            <Link href={menu.url} className="text-red-1 text-[8px] leading-3">
               {menu.title}
             </Link>
           </div>

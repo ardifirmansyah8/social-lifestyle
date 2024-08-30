@@ -12,7 +12,7 @@ type Props = {
 
 export default function CardNews({ data }: Props) {
   return (
-    <div className="bg-pink-1 rounded-[5px] h-[146px] border border-grey-1 flex flex-col gap-4">
+    <div className="bg-pink-1 rounded-[5px] h-[150px] border border-grey-1 flex flex-col">
       <Image
         src={data.imageUrl}
         alt={`berita-${1}`}
@@ -27,7 +27,7 @@ export default function CardNews({ data }: Props) {
             #{data.categoryName}
           </Label>
           <Link
-            className="text-[8px] text-red-1 font-medium"
+            className="text-[8px] text-red-1 font-medium line-clamp-2"
             href={`https://crowfunding.com/news/${data.id}`}
           >
             {data.title}

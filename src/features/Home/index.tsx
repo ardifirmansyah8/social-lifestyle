@@ -6,13 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import Section from "./components/Section";
 import CardInfo from "./components/CardInfo";
-import { useFetchNews, useFetchPrograms } from "@/hooks";
+import { useFetchLandingPage } from "@/hooks";
+import type { IProgram, IInfo } from "@/types";
 
 const ECOSYSTEM = [
   {
     icon: "cari-masjid",
     title: "Cari Masjid",
-    url: "#",
+    url: "https://masjed.id/inframe/carimasjid",
   },
   {
     icon: "jadwal-sholat",
@@ -35,32 +36,32 @@ const ZISWAF = [
   {
     icon: "zakat",
     title: "Zakat",
-    url: "#",
+    url: "/donation?type=Zakat",
   },
   {
     icon: "infaq",
     title: "Infaq",
-    url: "#",
+    url: "/donation?type=Infaq",
   },
   {
     icon: "wakaf",
     title: "wakaf",
-    url: "#",
+    url: "/donation?type=Wakaf",
   },
   {
     icon: "sedekah-yatim",
     title: "Sedekah Yatim",
-    url: "#",
+    url: "/donation?type=Sedekah Yatim",
   },
   {
     icon: "jumat-berkah",
     title: "Jum'at Berkah",
-    url: "#",
+    url: "/donation?type=Jum'at Berkah",
   },
   {
     icon: "rumah-tahfidz",
     title: "Rumah Tahfidz",
-    url: "#",
+    url: "/donation?type=Rumah Tahfidz",
   },
 ];
 
@@ -68,17 +69,17 @@ const ISLAMIC_PRODUCT = [
   {
     icon: "qurban",
     title: "Kurban",
-    url: "#",
+    url: "/donation",
   },
   {
     icon: "aqiqah",
     title: "Akikah",
-    url: "#",
+    url: "/donation",
   },
   {
     icon: "umroh",
     title: "Umroh",
-    url: "#",
+    url: "/donation",
   },
 ];
 
@@ -86,22 +87,22 @@ const SOSIAL_DONATION = [
   {
     icon: "palestine",
     title: "Bantu Palestina",
-    url: "#",
+    url: "/donation?type=Bantu Palestina",
   },
   {
     icon: "church",
     title: "Bantu Gereja",
-    url: "#",
+    url: "/donation?type=Bantu Gereja",
   },
   {
     icon: "social",
     title: "Kemanusiaan",
-    url: "#",
+    url: "/donation?type=Kemanusiaan",
   },
   {
     icon: "environment",
     title: "Lingkungan",
-    url: "#",
+    url: "/donation?type=Lingkungan",
   },
 ];
 
@@ -115,11 +116,9 @@ const settings = {
 };
 
 export default function Home() {
-  const { data: programsData } = useFetchPrograms();
-  const programs = programsData?.data;
-
-  const { data: newsData } = useFetchNews();
-  const news = newsData?.data;
+  const { data: landingPageData } = useFetchLandingPage();
+  const programs = landingPageData?.data[2].contents;
+  const news = landingPageData?.data[5].contents;
 
   return (
     <div className="flex flex-col gap-1">
@@ -144,9 +143,16 @@ export default function Home() {
         <div className="mt-6">
           {programs && programs.length > 0 && (
             <Slider {...settings}>
-              {programs.map((item, i) => (
-                <CardInfo key={`/berita-${i + 1}`} data={item} />
-              ))}
+              {programs.map((item, i) => {
+                const dataItem = item as IProgram;
+                const data = {
+                  id: item.id,
+                  imageUrl: dataItem.media1Url,
+                  title: dataItem.category.title,
+                  categoryName: dataItem.category.name,
+                };
+                return <CardInfo key={`/berita-${i + 1}`} data={data} />;
+              })}
             </Slider>
           )}
           {programs?.length === 0 && <Label>Tidak ada Program</Label>}
@@ -170,7 +176,7 @@ export default function Home() {
           {news && news.length > 0 && (
             <Slider {...settings}>
               {news.map((item, i) => (
-                <CardInfo key={`/berita-${i + 1}`} data={item} />
+                <CardInfo key={`/berita-${i + 1}`} data={item as IInfo} />
               ))}
             </Slider>
           )}

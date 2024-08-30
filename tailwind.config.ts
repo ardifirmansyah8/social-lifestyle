@@ -15,9 +15,12 @@ const config = {
     extend: {
       backgroundImage: {
         "footer-bg": "url('/footer/footer-bg.svg')",
+        "donation-bg": "url('/bg-donation.jpg')",
       },
       colors: {
         "grey-1": "#E2E0E0",
+        "grey-2": "#4E4E4E",
+        "grey-3": "#4A4A4A",
         "red-1": "#B11F42",
         "brown-1": "#F5F5EF",
         "pink-1": "#EAAB9A",

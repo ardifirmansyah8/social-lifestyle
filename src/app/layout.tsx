@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 
 import { Toaster } from "@/components/ui/toaster";
-import Layout from "@/components/Layout";
 import ReactQueryProvider from "@/components/Provider/ReactQueryProvider";
 
 import "./globals.css";
@@ -24,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={josefin.className}>
-        <ReactQueryProvider>
-          <Layout>{children}</Layout>
-        </ReactQueryProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <Toaster />
       </body>
     </html>

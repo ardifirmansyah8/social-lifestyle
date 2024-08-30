@@ -4,10 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "api.masjed.id",
+        protocol: "http",
+        hostname: "lifestyle.eziswaf.net",
         port: "",
-        pathname: "/assets/icons/menus/**",
+        pathname: "/api/v1/**",
       },
     ],
   },

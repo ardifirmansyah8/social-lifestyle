@@ -1,16 +1,34 @@
 "use client";
 
 import clsx from "clsx";
-import { Josefin_Sans } from "next/font/google";
 import Image from "next/image";
-
-import { Label } from "./ui/label";
 import Link from "next/link";
-import { Separator } from "./ui/separator";
+
+import { Label } from "../ui/label";
+import { Separator } from "../ui/separator";
+import Trademark from "./Trademark";
 
 export default function Footer() {
   return (
     <footer className={clsx("w-full bg-white flex flex-col items-center pt-5")}>
+      <div className="flex items-center mb-4 gap-7">
+        <Link href={"https://google.com"}>
+          <Image
+            src="/footer/logo-app-store.jpg"
+            alt="logo-app-store"
+            width={96}
+            height={28}
+          />
+        </Link>
+        <Link href={"https://google.com"}>
+          <Image
+            src="/footer/logo-play-store.jpg"
+            alt="logo-google-play"
+            width={96}
+            height={28}
+          />
+        </Link>
+      </div>
       <div className="w-72 flex flex-col items-center">
         <Label className="text-xs">License</Label>
         <div className="w-full flex justify-between mt-4 mb-6">
@@ -76,7 +94,7 @@ export default function Footer() {
         Tetap terhubung <span className="font-bold">#BersamaKami</span>
       </Label>
 
-      <div className="flex items-center gap-8 mt-4">
+      <div className="flex items-center gap-8 my-4">
         <Image
           src="/footer/icon-ig.svg"
           alt="icon-ig"
@@ -120,28 +138,7 @@ export default function Footer() {
         />
       </div>
 
-      <div className="w-full h-8 bg-footer-bg mt-4 pt-4 px-3">
-        <div className="flex justify-between">
-          <Label className="text-[8px] text-white flex gap-1">
-            <span>©</span>
-            <span>2024 Masjed Indonesia Digital</span>
-          </Label>
-
-          <div className="flex items-center gap-1">
-            <Link className="text-[8px] text-white" href={"google.com"}>
-              Kebijakan Privasi
-            </Link>
-            <Label className="text-[8px] text-white">|</Label>
-            <Link className="text-[8px] text-white" href={"google.com"}>
-              Syarat & Ketentuan
-            </Link>
-            <Label className="text-[8px] text-white">|</Label>
-            <Link className="text-[8px] text-white" href={"google.com"}>
-              FAQ
-            </Link>
-          </div>
-        </div>
-      </div>
+      <Trademark />
     </footer>
   );
 }
