@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/api/v1/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.duitku.com",
+        port: "",
+        pathname: "/hotlink-ok/**",
+      },
     ],
   },
   rewrites: async () => {

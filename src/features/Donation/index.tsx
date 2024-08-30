@@ -1,19 +1,48 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import Layout from "@/components/Layout/Donation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CONTENT } from "./constants";
+import Layout from "@/components/Layout/Donation";
+import DonationDialog from "./components/PaymentMethodDialog";
+
+const DonationSchema = z.object({
+  amount: z.string().regex(/^\d+$/),
+  phone: z.string().regex(/^62[1-9]\d{7,11}$/),
+});
+
+type DonationType = z.infer<typeof DonationSchema>;
 
 export default function Donation() {
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DonationType>({ resolver: zodResolver(DonationSchema) });
+
   const search = useSearchParams();
   const type = search.get("type") ?? "";
   const dataContent = CONTENT[type] ?? {};
+
+  const [product, setProduct] = useState("");
+  const [dialog, setDialog] = useState("");
+
+  const amount = watch("amount");
+  const phone = watch("phone");
+
+  const onNext = () => {
+    setDialog("payment-method");
+  };
 
   return (
     <Layout title={type}>
@@ -48,10 +77,18 @@ export default function Donation() {
                 className="w-1/5 flex flex-col items-center gap-2.5"
               >
                 <Image
-                  src={`/icon/${item.icon}.svg`}
+                  src={`/icon/${
+                    type === "Zakat"
+                      ? product === item.label
+                        ? item.icon
+                        : "icon-placeholder"
+                      : item.icon
+                  }.svg`}
                   width={34}
                   height={34}
                   alt={item.icon}
+                  className={clsx(type === "Zakat" ? "cursor-pointer" : "")}
+                  onClick={() => type === "Zakat" && setProduct(item.label)}
                 />
                 <Label className="text-[10px] text-center">{item.label}</Label>
               </div>
@@ -63,22 +100,41 @@ export default function Donation() {
       <div className="bg-brown-1 p-5 flex flex-col gap-4 rounded-[10px] mt-1">
         <div className="flex flex-col gap-4">
           <Label className="text-base font-semibold">Nominal:</Label>
-          <Input
-            leftIcon={
-              <Label className="absolute top-3 left-4 text-red-1 text-xs">
-                Rp
+          <div>
+            <Input
+              leftIcon={
+                <Label className="absolute top-3 left-4 text-red-1 text-xs">
+                  Rp
+                </Label>
+              }
+              {...register("amount")}
+            />
+            {errors.amount && (
+              <Label className="text-red-500 text-xs mt-1">
+                Nominal harus diisi dengan angka
               </Label>
-            }
-          />
+            )}
+          </div>
         </div>
         <div className="flex flex-col">
           <Label className="text-base font-semibold">Nomor Ponsel:</Label>
           <Label className="text-[10px] italic mt-1 mb-4">
             Untuk bukti pembayaran E-ZISWAF
           </Label>
-          <Input placeholder="62xxxxxxxxx" />
+          <div>
+            <Input placeholder="62xxxxxxxxx" {...register("phone")} />
+            {errors.phone && (
+              <Label className="text-red-500 text-xs mt-1">
+                No handphone tidak valid
+              </Label>
+            )}
+          </div>
         </div>
-        <Button className="bg-pink-1 text-lg text-red-1 hover:bg-pink-1">
+        <Button
+          className="bg-pink-1 text-lg text-red-1 hover:bg-pink-1"
+          // onClick={() => window.open("https://google.com")}
+          onClick={handleSubmit(onNext)}
+        >
           Lanjutkan
         </Button>
       </div>
@@ -174,6 +230,13 @@ export default function Donation() {
           )}
         </div>
       </div>
+
+      <DonationDialog
+        open={dialog === "payment-method"}
+        onClose={() => setDialog("")}
+        phone={phone}
+        amount={Number(amount)}
+      />
     </Layout>
   );
 }
