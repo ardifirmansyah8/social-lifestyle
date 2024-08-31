@@ -9,6 +9,7 @@ export const CONTENT: {
   };
 } = {
   Zakat: {
+    id: 0,
     description:
       "Zakat BersamaKami wujudkan kepedulian dan tanggung jawab sosial untuk membantu sesama yang membutuhkan",
     title: "Niat Mengeluarkan Zakat",

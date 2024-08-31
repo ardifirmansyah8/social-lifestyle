@@ -78,13 +78,13 @@ export default function DonationDialog({
     const body = {
       paymentAmount: amount,
       paymentMethod: selectedMethod,
-      productDetails: product, // ?
+      productDetails: product?.toString() ?? "", // ?
       customerVaName: "Hamba Allah",
       email: "payment@eziswaf.net",
       phoneNumber: phone,
       itemDetails: [
         {
-          name: product, // ?
+          name: product?.toString() ?? "", // ?
           price: amount,
           quantity: 1,
         },
