@@ -1,10 +1,11 @@
 export const CONTENT: {
   [key: string]: {
+    id: number;
     description: string;
     title: string;
     niat: string;
     arti: string;
-    pilihan: { icon: string; label: string }[];
+    pilihan: { id?: number; icon: string; label: string }[];
   };
 } = {
   Zakat: {
@@ -15,24 +16,29 @@ export const CONTENT: {
     arti: "Saya berniat mengeluarkan zakat harta milikku karena Allah Ta’ala.",
     pilihan: [
       {
+        id: 1,
         icon: "icon-checklist",
         label: "Penghasilan",
       },
       {
+        id: 2,
         icon: "icon-checklist",
         label: "Maal",
       },
       {
+        id: 3,
         icon: "icon-checklist",
         label: "Perusahaan",
       },
       {
+        id: 4,
         icon: "icon-checklist",
         label: "Fitrah",
       },
     ],
   },
   Infaq: {
+    id: 5,
     description:
       "Berbagi berkah, menebar kebaikan, menguatkan ukhwah dan peningkatan layanan masjid untuk operasional, fasilitas, sosial, pemberdayaan, pendidikan, lingkungan dan Kesejahteraan.",
     title: "Niat Mengeluarkan Infaq",
@@ -70,6 +76,7 @@ export const CONTENT: {
     ],
   },
   Wakaf: {
+    id: 6,
     description:
       "Setiap wakaf dengan uang yang anda tunaikan BersamaKami akan menjadi sumber kebaikan yang tak pernah berhenti.",
     title: "Niat Mengeluarkan Wakaf",
@@ -95,6 +102,7 @@ export const CONTENT: {
     ],
   },
   "Sedekah Yatim": {
+    id: 7,
     description:
       "Sebarkan cinta kepada anak-anak yatim, terangi jalan mereka menuju masa depan BersamaKami.",
     title: "Doa Menyantuni Yatim",
@@ -116,6 +124,7 @@ export const CONTENT: {
     ],
   },
   "Jum'at Berkah": {
+    id: 8,
     description:
       "BersamaKami manfaatkan Hari Jum’at penuh berkah untuk berbagi kebaikan kepada sesama. Raih kebaikan dan jutaan pahala di hari yang Mulia.",
     title: "Keutamaan Hari Jum’at",
@@ -141,6 +150,7 @@ export const CONTENT: {
     ],
   },
   "Rumah Tahfidz": {
+    id: 9,
     description:
       "BersamaKami membangun rumah Tahfidz untuk mencetak generasi berkualitas dan berakhlak mulia. Dapatkan pahala jariyah dengan melahirkan generasi Qur’ani.",
     title: "Kebaikan Membangun Rumah Tahfidz",
@@ -166,6 +176,7 @@ export const CONTENT: {
     ],
   },
   "Bantu Palestina": {
+    id: 10,
     description:
       "Salurkan bantuan anda untuk Palestina BersamaKami. Setiap kontribusi sekecil apapun akan memberikan harapan bagi saudara kita di Palestina.",
     title: "Doa untuk Saudara di Palestina",
@@ -191,6 +202,7 @@ export const CONTENT: {
     ],
   },
   "Bantu Gereja": {
+    id: 11,
     description:
       "BersamaKami salurkan bantuan anda untuk mendukung gereja dan kegiatan rohani.",
     title: "Doa untuk Bantu Gereja",
@@ -212,6 +224,7 @@ export const CONTENT: {
     ],
   },
   Kemanusiaan: {
+    id: 12,
     description:
       "Dukungan program kemanusiaan BersamaKami dan berikan bantuan kepada mereka yang membutuhkan.",
     title: "Kebaikan kepada Sesama",
@@ -233,6 +246,7 @@ export const CONTENT: {
     ],
   },
   Lingkungan: {
+    id: 13,
     description:
       "Dukung upaya pelestarian lingkungan BersamaKami, setiap donasi anda berperan untuk generasi yang akan datang.",
     title: "Kebaikan Peduli Lingkungan",

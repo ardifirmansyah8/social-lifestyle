@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,9 +32,9 @@ export default function Donation() {
 
   const search = useSearchParams();
   const type = search.get("type") ?? "";
-  const dataContent = CONTENT[type] ?? {};
+  const dataContent = useMemo(() => CONTENT[type] ?? {}, [type]);
 
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState<number | undefined>();
   const [dialog, setDialog] = useState("");
 
   const amount = watch("amount");
@@ -43,6 +43,13 @@ export default function Donation() {
   const onNext = () => {
     setDialog("payment-method");
   };
+
+  useEffect(() => {
+    if (type !== "Zakat") {
+      setProduct(dataContent.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataContent]);
 
   return (
     <Layout title={type}>
@@ -79,7 +86,7 @@ export default function Donation() {
                 <Image
                   src={`/icon/${
                     type === "Zakat"
-                      ? product === item.label
+                      ? product === item.id
                         ? item.icon
                         : "icon-placeholder"
                       : item.icon
@@ -88,7 +95,7 @@ export default function Donation() {
                   height={34}
                   alt={item.icon}
                   className={clsx(type === "Zakat" ? "cursor-pointer" : "")}
-                  onClick={() => type === "Zakat" && setProduct(item.label)}
+                  onClick={() => type === "Zakat" && setProduct(item?.id)}
                 />
                 <Label className="text-[10px] text-center">{item.label}</Label>
               </div>
@@ -236,6 +243,7 @@ export default function Donation() {
         onClose={() => setDialog("")}
         phone={phone}
         amount={Number(amount)}
+        product={product}
       />
     </Layout>
   );

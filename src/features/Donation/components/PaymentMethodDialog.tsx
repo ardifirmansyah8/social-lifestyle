@@ -29,11 +29,13 @@ export default function DonationDialog({
   onClose,
   phone,
   amount,
+  product,
 }: {
   open: boolean;
   onClose: () => void;
   phone: string;
   amount: number;
+  product: number | undefined;
 }) {
   const { mutateAsync: getPaymentMethods } = usePaymentMethods();
   const { mutateAsync } = usePayment();
@@ -76,13 +78,13 @@ export default function DonationDialog({
     const body = {
       paymentAmount: amount,
       paymentMethod: selectedMethod,
-      productDetails: "", // ?
+      productDetails: product, // ?
       customerVaName: "Hamba Allah",
       email: "payment@eziswaf.net",
       phoneNumber: phone,
       itemDetails: [
         {
-          name: "", // ?
+          name: product, // ?
           price: amount,
           quantity: 1,
         },
